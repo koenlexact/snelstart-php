@@ -10,6 +10,7 @@ use SnelstartPHP\Connector\BaseConnector;
 use SnelstartPHP\Exception\PreValidationException;
 use SnelstartPHP\Mapper\V2\VerkooporderMapper;
 use SnelstartPHP\Model\V2\Verkooporder;
+use SnelstartPHP\Request\ODataRequestData;
 use SnelstartPHP\Request\V2\VerkooporderRequest;
 
 final class VerkooporderConnector extends BaseConnector
@@ -21,9 +22,9 @@ final class VerkooporderConnector extends BaseConnector
         }
 
         $verkooporderMapper = new VerkooporderMapper();
-        $verkooporderRequst = new VerkooporderRequest();
+        $verkooporderRequest = new VerkooporderRequest();
 
-        return $verkooporderMapper->add($this->connection->doRequest($verkooporderRequst->add($verkooporder)));
+        return $verkooporderMapper->add($this->connection->doRequest($verkooporderRequest->add($verkooporder)));
     }
 
     public function delete(Verkooporder $verkooporder): void
@@ -33,8 +34,28 @@ final class VerkooporderConnector extends BaseConnector
         }
 
         $verkooporderMapper = new VerkooporderMapper();
-        $verkooporderRequst = new VerkooporderRequest();
+        $verkooporderRequest = new VerkooporderRequest();
 
-        $verkooporderMapper->delete($this->connection->doRequest($verkooporderRequst->delete($verkooporder)));
+        $verkooporderMapper->delete($this->connection->doRequest($verkooporderRequest->delete($verkooporder)));
+    }
+
+    public function update(Verkooporder $order): Verkooporder
+    {
+        if ($order->getId() === null) {
+            throw PreValidationException::shouldHaveAnIdException();
+        }
+
+        $verkooporderMapper = new VerkooporderMapper();
+        $verkooporderRequest = new VerkooporderRequest();
+
+        return $verkooporderMapper->map($this->connection->doRequest($verkooporderRequest->update($order)));
+    }
+
+    public function findAll(ODataRequestData $data): iterable
+    {
+        $verkooporderMapper = new VerkooporderMapper();
+        $verkooporderRequest = new VerkooporderRequest();
+
+        return $verkooporderMapper->map($this->connection->doRequest($verkooporderRequest->findAll($data)));
     }
 }

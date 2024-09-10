@@ -19,6 +19,18 @@ use SnelstartPHP\Request\V2 as Request;
 
 final class BoekingConnector extends BaseConnector
 {
+    public function findBankboeking(UuidInterface $uuid): ?Model\Bankboeking
+    {
+        $boekingRequest = new Request\BoekingRequest();
+        $boekingMapper = new Mapper\BoekingMapper();
+
+        try {
+            return $boekingMapper->findBankboeking($this->connection->doRequest($boekingRequest->findBankboeking($uuid)));
+        } catch (SnelstartResourceNotFoundException $e) {
+            return null;
+        }
+    }
+
     public function findInkoopboeking(UuidInterface $uuid): ?Model\Inkoopboeking
     {
         $boekingRequest = new Request\BoekingRequest();
@@ -57,6 +69,18 @@ final class BoekingConnector extends BaseConnector
         }
     }
 
+    public function addBankboeking(Model\Bankboeking $bankboeking): Model\Bankboeking
+    {
+        if ($bankboeking->getId() !== null) {
+            throw PreValidationException::unexpectedIdException();
+        }
+
+        $boekingMapper = new Mapper\BoekingMapper();
+        $boekingRequest = new Request\BoekingRequest();
+
+        return $boekingMapper->addBankboeking($this->connection->doRequest($boekingRequest->addBankboeking($bankboeking)));
+    }
+
     public function addInkoopboeking(Model\Inkoopboeking $inkoopboeking): Model\Inkoopboeking
     {
         if ($inkoopboeking->getId() !== null) {
@@ -79,6 +103,18 @@ final class BoekingConnector extends BaseConnector
         $documentRequest = new Request\DocumentRequest();
 
         return $documentMapper->add($this->connection->doRequest($documentRequest->addInkoopBoekingDocument($document, $inkoopboeking)));
+    }
+
+    public function updateBankboeking(Model\Bankboeking $bankboeking): Model\Bankboeking
+    {
+        if ($bankboeking->getId() === null) {
+            throw PreValidationException::shouldHaveAnIdException();
+        }
+
+        $boekingMapper = new Mapper\BoekingMapper();
+        $boekingRequest = new Request\BoekingRequest();
+
+        return $boekingMapper->updateBankboeking($this->connection->doRequest($boekingRequest->updateBankboeking($bankboeking)));
     }
 
     public function updateInkoopboeking(Model\Inkoopboeking $inkoopboeking): Model\Inkoopboeking

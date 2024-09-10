@@ -57,7 +57,7 @@ abstract class Boeking extends SnelstartObject
     /**
      * De factuurnummer van de boeking.
      *
-     * @var string
+     * @var string||null
      */
     protected $factuurnummer;
 
@@ -185,12 +185,12 @@ abstract class Boeking extends SnelstartObject
         return $this;
     }
 
-    public function getFactuurnummer(): string
+    public function getFactuurnummer(): ?string
     {
         return $this->factuurnummer;
     }
 
-    public function setFactuurnummer(string $factuurnummer): self
+    public function setFactuurnummer(?string $factuurnummer): self
     {
         $this->factuurnummer = $factuurnummer;
 
@@ -209,7 +209,7 @@ abstract class Boeking extends SnelstartObject
         return $this;
     }
 
-    public function getFactuurbedrag(): Money
+    public function getFactuurbedrag(): ?Money
     {
         return $this->factuurbedrag;
     }

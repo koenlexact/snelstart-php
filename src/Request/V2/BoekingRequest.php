@@ -12,6 +12,30 @@ use SnelstartPHP\Utils;
 
 final class BoekingRequest extends BaseRequest
 {
+    public function addBankboeking(Model\Bankboeking $bankboeking): RequestInterface
+    {
+        return new Request("POST", "bankboekingen", [
+            "Content-Type"  =>  "application/json"
+        ], Utils::jsonEncode($this->prepareAddOrEditRequestForSerialization($bankboeking)));
+    }
+
+    public function findBankboeking(UuidInterface $uuid): RequestInterface
+    {
+        return new Request("GET", "bankboekingen/" . $uuid->toString());
+    }
+
+    public function updateBankboeking(Model\Bankboeking $bankboeking): RequestInterface
+    {
+        if ($bankboeking->getId() === null) {
+            throw PreValidationException::shouldHaveAnIdException();
+        }
+
+        return new Request("PUT", "bankboekingen/" . $bankboeking->getId()->toString(), [
+            "Content-Type"  =>  "application/json"
+        ], Utils::jsonEncode($this->prepareAddOrEditRequestForSerialization($bankboeking)));
+    }
+
+
     public function findInkoopboeking(UuidInterface $uuid): RequestInterface
     {
         return new Request("GET", "inkoopboekingen/" . $uuid->toString());

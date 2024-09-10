@@ -19,6 +19,12 @@ use SnelstartPHP\Model\Type as Type;
 
 final class BoekingMapper extends AbstractMapper
 {
+    public function findBankboeking(ResponseInterface $response): Model\Bankboeking
+    {
+        $this->setResponseData($response);
+        return $this->mapArrayDataToModel(new Model\Bankboeking());
+    }
+
     public function findInkoopboeking(ResponseInterface $response): Model\Inkoopboeking
     {
         $this->setResponseData($response);
@@ -29,6 +35,12 @@ final class BoekingMapper extends AbstractMapper
     {
         $this->setResponseData($response);
         return $this->mapVerkoopboekingResult(new Model\Verkoopboeking());
+    }
+
+    public function findAllBankboekingen(ResponseInterface $response): \Generator
+    {
+        $this->setResponseData($response);
+        yield from $this->mapManyResultsToSubMappers(Model\Bankboeking::class);
     }
 
     public function findAllInkoopboekingen(ResponseInterface $response): \Generator
@@ -53,6 +65,18 @@ final class BoekingMapper extends AbstractMapper
     {
         $this->setResponseData($response);
         return $this->mapManyResultsToSubMappers(Model\Verkoopfactuur::class);
+    }
+
+    public function addBankboeking(ResponseInterface $response): Model\Bankboeking
+    {
+        $this->setResponseData($response);
+        return $this->mapArrayDataToModel(new Model\Bankboeking());
+    }
+
+    public function updateBankboeking(ResponseInterface $response): Model\Bankboeking
+    {
+        $this->setResponseData($response);
+        return $this->mapArrayDataToModel(new Model\Bankboeking());
     }
 
     public function addInkoopboeking(ResponseInterface $response): Model\Inkoopboeking
