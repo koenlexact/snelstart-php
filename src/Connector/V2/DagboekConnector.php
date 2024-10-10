@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author  Koen Jesse Dekker <mail@kjdekker.com>
+ * @project SnelstartApiPHP
+ */
 
 namespace SnelstartPHP\Connector\V2;
 

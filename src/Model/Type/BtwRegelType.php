@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  IntoWebDevelopment <info@intowebdevelopment.nl>
+ * @author  Koen Jesse Dekker <mail@kjdekker.com>
  * @project SnelstartApiPHP
  */
 
