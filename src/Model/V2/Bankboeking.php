@@ -73,7 +73,7 @@ final class Bankboeking extends Boeking
         "datum",
         "klant",
         "grootboekBoekingsRegels",
-        "inkoopboekingBoekingsRegels",
+        "inkoopboekingVerantwoordingsRegels",
         "verkoopBoekingVerantwoordingsRegels",
         "btwBoekingsRegels",
         "bedragUitgegeven",
