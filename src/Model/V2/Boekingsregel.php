@@ -47,14 +47,14 @@ final class Boekingsregel extends BaseObject
      *
      * @var BtwSoort
      */
-    private $btwSoort;
+    private $BtwSoort;
 
     public static $editableAttributes = [
         "omschrijving",
         "grootboek",
         "kostenplaats",
         "bedrag",
-        "btwSoort",
+        "BtwSoort",
     ];
 
     /**
@@ -138,16 +138,16 @@ final class Boekingsregel extends BaseObject
      */
     public function getBtwSoort(): BtwSoort
     {
-        return $this->btwSoort;
+        return $this->BtwSoort;
     }
 
     /**
-     * @param BtwSoort $btwSoort
+     * @param BtwSoort $BtwSoort
      * @return Boekingsregel
      */
-    public function setBtwSoort(BtwSoort $btwSoort): self
+    public function setBtwSoort(BtwSoort $BtwSoort): self
     {
-        $this->btwSoort = $btwSoort;
+        $this->BtwSoort = $BtwSoort;
 
         return $this;
     }

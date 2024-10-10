@@ -92,7 +92,7 @@ abstract class BaseConnection implements ConnectionInterface
 
             $this->preRequestValidation($request = $request->withHeader("Authorization", sprintf("%s %s", $this->accessToken->getTokenType(), $this->accessToken->getAccessToken())));
             $this->numRetries++;
-
+            
             if ($this->logger !== null) {
                 $this->logger->debug("[Connection] About to send a request with the following specs", [
                     "method"    =>  $request->getMethod(),

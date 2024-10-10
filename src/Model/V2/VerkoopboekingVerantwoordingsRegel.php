@@ -7,28 +7,21 @@ use SnelstartPHP\Model\BaseObject;
 use SnelstartPHP\Model\Kostenplaats;
 use SnelstartPHP\Model\Type\BtwSoort;
 
-final class GrootboekBoekingsregel extends BaseObject
+final class VerkoopboekingVerantwoordingsRegel extends BaseObject
 {
+    /**
+     * De verkoopboeking waarop deze verantwoordingsregel betrekking heeft.
+     *
+     * @var Verkoopboeking
+     */
+    private $verkoopboeking;
+
     /**
      * De omschrijving van de boekingsregel.
      *
      * @var string|null
      */
     private $omschrijving;
-
-    /**
-     * De grootboekrekening waarop de mutatie (omzet) wordt geboekt.
-     *
-     * @var Grootboek
-     */
-    private $grootboek;
-
-    /**
-     * De kostenplaats waarop deze mutatie (omzet) is geregistreerd.
-     *
-     * @var Kostenplaats|null
-     */
-    private $kostenplaats;
 
     /**
      * Het kredietbedrag dat aangeeft hoeveel geld ontvangen is.
@@ -53,13 +46,23 @@ final class GrootboekBoekingsregel extends BaseObject
     private $btwSoort;
 
     public static $editableAttributes = [
+        "verkoopBoeking",
         "omschrijving",
-        "grootboek",
-        "kostenplaats",
         "credit",
         "debet",
-        "btwSoort",
     ];
+
+    public function getVerkoopboeking(): ?Verkoopboeking
+    {
+        return $this->verkoopboeking;
+    }
+
+    public function setVerkoopboeking(Verkoopboeking $verkoopboeking): self
+    {
+        $this->verkoopboeking = $verkoopboeking;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -73,7 +76,7 @@ final class GrootboekBoekingsregel extends BaseObject
      * @param string $omschrijving
      * @return Boekingsregel
      */
-    public function setOmschrijving(?string $omschrijving): self
+    public function setOmschrijving(string $omschrijving): self
     {
         $this->omschrijving = $omschrijving;
 

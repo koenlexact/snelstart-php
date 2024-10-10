@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  IntoWebDevelopment <info@intowebdevelopment.nl>
+ * @author  Koen Jesse Dekker <mail@kjdekker.com>
  * @project SnelstartApiPHP
  */
 
@@ -27,21 +27,21 @@ final class Bankboeking extends Boeking
     /**
      * Inkoopboeking boekingsregels die bij deze bankboeking horen.
      *
-     * @var Boekingsregel[]
+     * @var InkoopboekingVerantwoordingsRegel[]
      */
-    private $inkoopboekingBoekingsRegels = [];
+    private $inkoopboekingVerantwoordingsRegels = [];
 
     /**
      * Verkoopboeking boekingsregels die bij deze bankboeking horen.
      *
-     * @var Boekingsregel[]
+     * @var VerkoopboekingVerantwoordingsRegel[]
      */
-    private $verkoopboekingBoekingsRegels = [];
+    private $verkoopBoekingVerantwoordingsRegels = [];
 
     /**
      * BTW boekingsregels die bij deze bankboeking horen.
      *
-     * @var Boekingsregel[]
+     * @var BtwBoekingRegel[]
      */
     private $btwBoekingsRegels = [];
 
@@ -74,7 +74,7 @@ final class Bankboeking extends Boeking
         "klant",
         "grootboekBoekingsRegels",
         "inkoopboekingBoekingsRegels",
-        "verkoopboekingBoekingsRegels",
+        "verkoopBoekingVerantwoordingsRegels",
         "btwBoekingsRegels",
         "bedragUitgegeven",
         "bedragOntvangen",
@@ -88,6 +88,10 @@ final class Bankboeking extends Boeking
         );
     }
 
+    /**
+     * @param \DateTimeInterface $datum
+     * @return $this
+     */
     public function setDatum(\DateTimeInterface $datum): self
     {
         $this->datum = $datum;
@@ -95,16 +99,26 @@ final class Bankboeking extends Boeking
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface
+     */
     public function getDatum(): \DateTimeInterface
     {
         return $this->datum;
     }
 
+    /**
+     * @return Relatie|null
+     */
     public function getKlant(): ?Relatie
     {
         return $this->klant;
     }
 
+    /**
+     * @param Relatie $klant
+     * @return $this
+     */
     public function setKlant(Relatie $klant): self
     {
         $this->klant = $klant;
@@ -112,59 +126,94 @@ final class Bankboeking extends Boeking
         return $this;
     }
 
+    /**
+     * @return GrootboekBoekingsregel[]
+     */
     public function getGrootboekBoekingsRegels(): array
     {
         return $this->grootboekBoekingsRegels;
     }
 
-    public function setGrootboekBoekingsRegels(array $grootboekBoekingsRegels): self
+    /**
+     * @param GrootboekBoekingsregel ...$grootboekBoekingsRegels
+     * @return $this
+     */
+    public function setGrootboekBoekingsRegels(GrootboekBoekingsregel ...$grootboekBoekingsRegels): self
     {
         $this->grootboekBoekingsRegels = $grootboekBoekingsRegels;
 
         return $this;
     }
 
-    public function getInkoopboekingBoekingsRegels(): array
+    /**
+     * @return InkoopboekingVerantwoordingsRegel[]
+     */
+    public function getInkoopboekingVerantwoordingsRegels(): array
     {
         return $this->inkoopboekingBoekingsRegels;
     }
 
-    public function setInkoopboekingBoekingsRegels(array $inkoopboekingBoekingsRegels): self
+    /**
+     * @param InkoopboekingVerantwoordingsRegel ...$inkoopboekingVerantwoordingsRegels
+     * @return $this
+     */
+    public function setInkoopboekingVerantwoordingsRegels(InkoopboekingVerantwoordingsRegel ...$inkoopboekingVerantwoordingsRegels): self
     {
-        $this->inkoopboekingBoekingsRegels = $inkoopboekingBoekingsRegels;
+        $this->inkoopboekingBoekingsRegels = $inkoopboekingVerantwoordingsRegels;
 
         return $this;
     }
 
-    public function getVerkoopboekingBoekingsRegels(): array
+    /**
+     * @return VerkoopboekingVerantwoordingsRegel[]
+     */
+    public function getVerkoopBoekingVerantwoordingsRegels(): array
     {
-        return $this->verkoopboekingBoekingsRegels;
+        return $this->verkoopBoekingVerantwoordingsRegels;
     }
 
-    public function setVerkoopboekingBoekingsRegels(array $verkoopboekingBoekingsRegels): self
+    /**
+     * @param VerkoopboekingVerantwoordingsRegel ...$verkoopBoekingVerantwoordingsRegels
+     * @return $this
+     */
+    public function setVerkoopBoekingVerantwoordingsRegels(VerkoopboekingVerantwoordingsRegel ...$verkoopBoekingVerantwoordingsRegels): self
     {
-        $this->verkoopboekingBoekingsRegels = $verkoopboekingBoekingsRegels;
+        $this->verkoopBoekingVerantwoordingsRegels = $verkoopBoekingVerantwoordingsRegels;
 
         return $this;
     }
 
+    /**
+     * @return BtwBoekingRegel[]
+     */
     public function getBtwBoekingsRegels(): array
     {
         return $this->btwBoekingsRegels;
     }
 
-    public function setBtwBoekingsRegels(array $btwBoekingsRegels): self
+    /**
+     * @param BtwBoekingRegel ...$btwBoekingsRegels
+     * @return $this
+     */
+    public function setBtwBoekingsRegels(BtwBoekingRegel ...$btwBoekingsRegels): self
     {
         $this->btwBoekingsRegels = $btwBoekingsRegels;
 
         return $this;
     }
 
+    /**
+     * @return Money
+     */
     public function getBedragUitgegeven(): Money
     {
         return $this->bedragUitgegeven;
     }
 
+    /**
+     * @param Money $bedragUitgegeven
+     * @return $this
+     */
     public function setBedragUitgegeven(Money $bedragUitgegeven): self
     {
         $this->bedragUitgegeven = $bedragUitgegeven;
@@ -172,11 +221,18 @@ final class Bankboeking extends Boeking
         return $this;
     }
 
+    /**
+     * @return Money
+     */
     public function getBedragOntvangen(): Money
     {
         return $this->bedragOntvangen;
     }
 
+    /**
+     * @param Money $bedragOntvangen
+     * @return $this
+     */
     public function setBedragOntvangen(Money $bedragOntvangen): self
     {
         $this->bedragOntvangen = $bedragOntvangen;
@@ -184,11 +240,18 @@ final class Bankboeking extends Boeking
         return $this;
     }
 
+    /**
+     * @return Dagboek|null
+     */
     public function getDagboek(): ?Dagboek
     {
         return $this->dagboek;
     }
 
+    /**
+     * @param Dagboek|null $dagboek
+     * @return $this
+     */
     public function setDagboek(?Dagboek $dagboek): self
     {
         $this->dagboek = $dagboek;
