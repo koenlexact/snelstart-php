@@ -150,7 +150,7 @@ final class Bankboeking extends Boeking
      */
     public function getInkoopboekingVerantwoordingsRegels(): array
     {
-        return $this->inkoopboekingBoekingsRegels;
+        return $this->inkoopboekingVerantwoordingsRegels;
     }
 
     /**
@@ -159,7 +159,7 @@ final class Bankboeking extends Boeking
      */
     public function setInkoopboekingVerantwoordingsRegels(InkoopboekingVerantwoordingsRegel ...$inkoopboekingVerantwoordingsRegels): self
     {
-        $this->inkoopboekingBoekingsRegels = $inkoopboekingVerantwoordingsRegels;
+        $this->inkoopboekingVerantwoordingsRegels = $inkoopboekingVerantwoordingsRegels;
 
         return $this;
     }
