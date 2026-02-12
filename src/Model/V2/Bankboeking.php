@@ -27,16 +27,16 @@ final class Bankboeking extends Boeking
     /**
      * Inkoopboeking boekingsregels die bij deze bankboeking horen.
      *
-     * @var InkoopboekingVerantwoordingsRegel[]
+     * @var InkoopboekingBoekingsRegel[]
      */
-    private $inkoopboekingVerantwoordingsRegels = [];
+    private $inkoopboekingBoekingsRegels = [];
 
     /**
      * Verkoopboeking boekingsregels die bij deze bankboeking horen.
      *
-     * @var VerkoopboekingVerantwoordingsRegel[]
+     * @var VerkoopboekingBoekingsRegel[]
      */
-    private $verkoopBoekingVerantwoordingsRegels = [];
+    private $verkoopBoekingBoekingsRegels = [];
 
     /**
      * BTW boekingsregels die bij deze bankboeking horen.
@@ -73,8 +73,8 @@ final class Bankboeking extends Boeking
         "datum",
         "klant",
         "grootboekBoekingsRegels",
-        "inkoopboekingVerantwoordingsRegels",
-        "verkoopBoekingVerantwoordingsRegels",
+        "inkoopboekingBoekingsRegels",
+        "verkoopBoekingBoekingsRegels",
         "btwBoekingsRegels",
         "bedragUitgegeven",
         "bedragOntvangen",
@@ -146,39 +146,39 @@ final class Bankboeking extends Boeking
     }
 
     /**
-     * @return InkoopboekingVerantwoordingsRegel[]
+     * @return InkoopboekingBoekingsRegel[]
      */
-    public function getInkoopboekingVerantwoordingsRegels(): array
+    public function getInkoopboekingBoekingsRegels(): array
     {
-        return $this->inkoopboekingVerantwoordingsRegels;
+        return $this->inkoopboekingBoekingsRegels;
     }
 
     /**
-     * @param InkoopboekingVerantwoordingsRegel ...$inkoopboekingVerantwoordingsRegels
+     * @param InkoopboekingBoekingsRegel ...$inkoopboekingBoekingsRegels
      * @return $this
      */
-    public function setInkoopboekingVerantwoordingsRegels(InkoopboekingVerantwoordingsRegel ...$inkoopboekingVerantwoordingsRegels): self
+    public function setInkoopboekingBoekingsRegels(InkoopboekingBoekingsRegel ...$inkoopboekingBoekingsRegels): self
     {
-        $this->inkoopboekingVerantwoordingsRegels = $inkoopboekingVerantwoordingsRegels;
+        $this->inkoopboekingBoekingsRegels = $inkoopboekingBoekingsRegels;
 
         return $this;
     }
 
     /**
-     * @return VerkoopboekingVerantwoordingsRegel[]
+     * @return VerkoopboekingBoekingsRegel[]
      */
-    public function getVerkoopBoekingVerantwoordingsRegels(): array
+    public function getVerkoopBoekingBoekingsRegels(): array
     {
-        return $this->verkoopBoekingVerantwoordingsRegels;
+        return $this->verkoopBoekingBoekingsRegels;
     }
 
     /**
-     * @param VerkoopboekingVerantwoordingsRegel ...$verkoopBoekingVerantwoordingsRegels
+     * @param VerkoopboekingBoekingsRegel ...$verkoopBoekingBoekingsRegels
      * @return $this
      */
-    public function setVerkoopBoekingVerantwoordingsRegels(VerkoopboekingVerantwoordingsRegel ...$verkoopBoekingVerantwoordingsRegels): self
+    public function setVerkoopBoekingBoekingsRegels(VerkoopboekingBoekingsRegel ...$verkoopBoekingBoekingsRegels): self
     {
-        $this->verkoopBoekingVerantwoordingsRegels = $verkoopBoekingVerantwoordingsRegels;
+        $this->verkoopBoekingBoekingsRegels = $verkoopBoekingBoekingsRegels;
 
         return $this;
     }
