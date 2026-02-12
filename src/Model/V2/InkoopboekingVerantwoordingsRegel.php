@@ -11,14 +11,14 @@ use SnelstartPHP\Model\BaseObject;
 use SnelstartPHP\Model\Kostenplaats;
 use SnelstartPHP\Model\Type\BtwSoort;
 
-final class VerkoopboekingBoekingsRegel extends BaseObject
+final class InkoopboekingVerantwoordingsRegel extends BaseObject
 {
     /**
-     * De verkoopboeking waarop deze verantwoordingsregel betrekking heeft.
+     * De inkoopboeking waarop deze verantwoordingsregel betrekking heeft.
      *
-     * @var Verkoopboeking
+     * @var Inkoopboeking
      */
-    private $verkoopboeking;
+    private $inkoopBoeking;
 
     /**
      * De omschrijving van de boekingsregel.
@@ -40,14 +40,6 @@ final class VerkoopboekingBoekingsRegel extends BaseObject
      * @var Money|null
      */
     private $debet;
-
-    /**
-     * Mag leeg worden gelaten of met de juiste waarde worden ingevuld behalve als de grootboek een
-     * grootboekfunctie 30 (Inkopen kosten alle btwtarieven) of 34 (inkopen vraagposten) heeft.
-     *
-     * @var BtwSoort
-     */
-    private $btwSoort;
 
     public static $editableAttributes = [
         "verkoopBoeking",
@@ -159,25 +151,6 @@ final class VerkoopboekingBoekingsRegel extends BaseObject
     public function setDebet(?Money $debet): self
     {
         $this->debet = $debet;
-
-        return $this;
-    }
-
-    /**
-     * @return BtwSoort
-     */
-    public function getBtwSoort(): BtwSoort
-    {
-        return $this->btwSoort;
-    }
-
-    /**
-     * @param BtwSoort $btwSoort
-     * @return Boekingsregel
-     */
-    public function setBtwSoort(BtwSoort $btwSoort): self
-    {
-        $this->btwSoort = $btwSoort;
 
         return $this;
     }
