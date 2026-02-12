@@ -36,7 +36,7 @@ final class Bankboeking extends Boeking
      *
      * @var VerkoopboekingBoekingsRegel[]
      */
-    private $verkoopBoekingBoekingsRegels = [];
+    private $verkoopboekingBoekingsRegels = [];
 
     /**
      * BTW boekingsregels die bij deze bankboeking horen.
@@ -74,7 +74,7 @@ final class Bankboeking extends Boeking
         "klant",
         "grootboekBoekingsRegels",
         "inkoopboekingBoekingsRegels",
-        "verkoopBoekingBoekingsRegels",
+        "verkoopboekingBoekingsRegels",
         "btwBoekingsRegels",
         "bedragUitgegeven",
         "bedragOntvangen",
@@ -167,18 +167,18 @@ final class Bankboeking extends Boeking
     /**
      * @return VerkoopboekingBoekingsRegel[]
      */
-    public function getVerkoopBoekingBoekingsRegels(): array
+    public function getVerkoopboekingBoekingsRegels(): array
     {
-        return $this->verkoopBoekingBoekingsRegels;
+        return $this->verkoopboekingBoekingsRegels;
     }
 
     /**
-     * @param VerkoopboekingBoekingsRegel ...$verkoopBoekingBoekingsRegels
+     * @param VerkoopboekingBoekingsRegel ...$verkoopboekingBoekingsRegels
      * @return $this
      */
-    public function setVerkoopBoekingBoekingsRegels(VerkoopboekingBoekingsRegel ...$verkoopBoekingBoekingsRegels): self
+    public function setVerkoopboekingBoekingsRegels(VerkoopboekingBoekingsRegel ...$verkoopboekingBoekingsRegels): self
     {
-        $this->verkoopBoekingBoekingsRegels = $verkoopBoekingBoekingsRegels;
+        $this->verkoopboekingBoekingsRegels = $verkoopboekingBoekingsRegels;
 
         return $this;
     }
