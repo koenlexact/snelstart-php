@@ -18,7 +18,7 @@ final class InkoopboekingVerantwoordingsRegel extends BaseObject
      *
      * @var Inkoopboeking
      */
-    private $inkoopBoeking;
+    private $boekingId;
 
     /**
      * De omschrijving van de boekingsregel.
@@ -42,20 +42,32 @@ final class InkoopboekingVerantwoordingsRegel extends BaseObject
     private $debet;
 
     public static $editableAttributes = [
-        "verkoopBoeking",
+        "boekingId",
         "omschrijving",
         "credit",
         "debet",
     ];
 
-    public function getVerkoopboeking(): ?Verkoopboeking
+    public function getBoekingId(): ?Inkoopboeking
     {
-        return $this->verkoopboeking;
+        return $this->boekingId;
     }
 
-    public function setVerkoopboeking(Verkoopboeking $verkoopboeking): self
+    public function setBoekingId(Inkoopboeking $inkoopboeking): self
     {
-        $this->verkoopboeking = $verkoopboeking;
+        $this->boekingId = $inkoopboeking;
+
+        return $this;
+    }
+
+    public function getInkoopboeking(): ?Inkoopboeking
+    {
+        return $this->getBoekingId();
+    }
+
+    public function setInkoopboeking(Inkoopboeking $inkoopboeking): self
+    {
+        $this->setBoekingId($inkoopboeking);
 
         return $this;
     }

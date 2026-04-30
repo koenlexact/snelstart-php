@@ -22,7 +22,7 @@ final class BoekingMapper extends AbstractMapper
     public function findBankboeking(ResponseInterface $response): Model\Bankboeking
     {
         $this->setResponseData($response);
-        return $this->mapArrayDataToModel(new Model\Bankboeking());
+        return $this->mapBankboekingResult(new Model\Bankboeking());
     }
 
     public function findInkoopboeking(ResponseInterface $response): Model\Inkoopboeking
@@ -70,13 +70,125 @@ final class BoekingMapper extends AbstractMapper
     public function addBankboeking(ResponseInterface $response): Model\Bankboeking
     {
         $this->setResponseData($response);
-        return $this->mapArrayDataToModel(new Model\Bankboeking());
+        return $this->mapBankboekingResult(new Model\Bankboeking());
     }
 
     public function updateBankboeking(ResponseInterface $response): Model\Bankboeking
     {
         $this->setResponseData($response);
-        return $this->mapArrayDataToModel(new Model\Bankboeking());
+        return $this->mapBankboekingResult(new Model\Bankboeking());
+    }
+
+    protected function mapBankboekingResult(Model\Bankboeking $bankboeking, array $data = []): Model\Bankboeking
+    {
+        $data = empty($data) ? $this->responseData : $data;
+
+        /**
+         * @var Model\Bankboeking $bankboeking
+         */
+        $bankboeking = $this->mapBoekingResult($bankboeking, $data);
+
+        if (isset($data['datum'])) {
+            $bankboeking->setDatum(new DateTimeImmutable($data['datum']));
+        }
+
+        if (isset($data['klant']['id'])) {
+            $bankboeking->setKlant(Model\Relatie::createFromUUID(Uuid::fromString($data['klant']['id'])));
+        }
+
+        if (isset($data['dagboek']['id'])) {
+            $bankboeking->setDagboek(Model\Dagboek::createFromUUID(Uuid::fromString($data['dagboek']['id'])));
+        }
+
+        if (isset($data['bedragUitgegeven'])) {
+            $bankboeking->setBedragUitgegeven($this->getMoney($data['bedragUitgegeven']));
+        }
+
+        if (isset($data['bedragOntvangen'])) {
+            $bankboeking->setBedragOntvangen($this->getMoney($data['bedragOntvangen']));
+        }
+
+        if (isset($data['grootboekBoekingsRegels'])) {
+            $bankboeking->setGrootboekBoekingsRegels(...array_map(function(array $boekingsregel): Model\GrootboekBoekingsregel {
+                $boekingsregelObject = new Model\GrootboekBoekingsregel();
+
+                if (isset($boekingsregel['omschrijving'])) {
+                    $boekingsregelObject->setOmschrijving($boekingsregel['omschrijving']);
+                }
+
+                if (isset($boekingsregel['grootboek']['id'])) {
+                    $boekingsregelObject->setGrootboek(Model\Grootboek::createFromUUID(Uuid::fromString($boekingsregel['grootboek']['id'])));
+                }
+
+                if (isset($boekingsregel['kostenplaats']['id'])) {
+                    $boekingsregelObject->setKostenplaats(Kostenplaats::createFromUUID(Uuid::fromString($boekingsregel['kostenplaats']['id'])));
+                }
+
+                if (array_key_exists('debet', $boekingsregel)) {
+                    $boekingsregelObject->setDebet($this->getMoney((string) $boekingsregel['debet']));
+                }
+
+                if (array_key_exists('credit', $boekingsregel)) {
+                    $boekingsregelObject->setCredit($this->getMoney((string) $boekingsregel['credit']));
+                }
+
+                if (isset($boekingsregel['btwSoort'])) {
+                    $boekingsregelObject->setBtwSoort(new Type\BtwSoort($boekingsregel['btwSoort']));
+                }
+
+                return $boekingsregelObject;
+            }, $data['grootboekBoekingsRegels']));
+        }
+
+        if (isset($data['verkoopboekingBoekingsRegels'])) {
+            $bankboeking->setVerkoopboekingBoekingsRegels(...array_map(function(array $boekingsregel): Model\VerkoopboekingVerantwoordingsRegel {
+                $boekingsregelObject = new Model\VerkoopboekingVerantwoordingsRegel();
+
+                if (isset($boekingsregel['boekingId']['id'])) {
+                    $boekingsregelObject->setBoekingId(Model\Verkoopboeking::createFromUUID(Uuid::fromString($boekingsregel['boekingId']['id'])));
+                }
+
+                if (array_key_exists('omschrijving', $boekingsregel) && $boekingsregel['omschrijving'] !== null) {
+                    $boekingsregelObject->setOmschrijving($boekingsregel['omschrijving']);
+                }
+
+                if (array_key_exists('debet', $boekingsregel)) {
+                    $boekingsregelObject->setDebet($this->getMoney((string) $boekingsregel['debet']));
+                }
+
+                if (array_key_exists('credit', $boekingsregel)) {
+                    $boekingsregelObject->setCredit($this->getMoney((string) $boekingsregel['credit']));
+                }
+
+                return $boekingsregelObject;
+            }, $data['verkoopboekingBoekingsRegels']));
+        }
+
+        if (isset($data['inkoopboekingBoekingsRegels'])) {
+            $bankboeking->setInkoopboekingBoekingsRegels(...array_map(function(array $boekingsregel): Model\InkoopboekingVerantwoordingsRegel {
+                $boekingsregelObject = new Model\InkoopboekingVerantwoordingsRegel();
+
+                if (isset($boekingsregel['boekingId']['id'])) {
+                    $boekingsregelObject->setBoekingId(Model\Inkoopboeking::createFromUUID(Uuid::fromString($boekingsregel['boekingId']['id'])));
+                }
+
+                if (array_key_exists('omschrijving', $boekingsregel) && $boekingsregel['omschrijving'] !== null) {
+                    $boekingsregelObject->setOmschrijving($boekingsregel['omschrijving']);
+                }
+
+                if (array_key_exists('debet', $boekingsregel)) {
+                    $boekingsregelObject->setDebet($this->getMoney((string) $boekingsregel['debet']));
+                }
+
+                if (array_key_exists('credit', $boekingsregel)) {
+                    $boekingsregelObject->setCredit($this->getMoney((string) $boekingsregel['credit']));
+                }
+
+                return $boekingsregelObject;
+            }, $data['inkoopboekingBoekingsRegels']));
+        }
+
+        return $bankboeking;
     }
 
     public function addInkoopboeking(ResponseInterface $response): Model\Inkoopboeking

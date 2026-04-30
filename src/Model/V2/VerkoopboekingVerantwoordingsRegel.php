@@ -18,7 +18,7 @@ final class VerkoopboekingVerantwoordingsRegel extends BaseObject
      *
      * @var Verkoopboeking
      */
-    private $verkoopboeking;
+    private $boekingId;
 
     /**
      * De omschrijving van de boekingsregel.
@@ -50,20 +50,32 @@ final class VerkoopboekingVerantwoordingsRegel extends BaseObject
     private $btwSoort;
 
     public static $editableAttributes = [
-        "verkoopBoeking",
+        "boekingId",
         "omschrijving",
         "credit",
         "debet",
     ];
 
+    public function getBoekingId(): ?Verkoopboeking
+    {
+        return $this->boekingId;
+    }
+
+    public function setBoekingId(Verkoopboeking $verkoopboeking): self
+    {
+        $this->boekingId = $verkoopboeking;
+
+        return $this;
+    }
+
     public function getVerkoopboeking(): ?Verkoopboeking
     {
-        return $this->verkoopboeking;
+        return $this->getBoekingId();
     }
 
     public function setVerkoopboeking(Verkoopboeking $verkoopboeking): self
     {
-        $this->verkoopboeking = $verkoopboeking;
+        $this->setBoekingId($verkoopboeking);
 
         return $this;
     }
